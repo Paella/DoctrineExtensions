@@ -49,7 +49,7 @@ class LoggableListener extends MappedEventSubscriber
      *
      * @var array
      */
-    private $pendingLogEntryInserts = array();
+    protected $pendingLogEntryInserts = array();
 
     /**
      * For log of changed relations we use
@@ -59,7 +59,7 @@ class LoggableListener extends MappedEventSubscriber
      *
      * @var array
      */
-    private $pendingRelatedObjects = array();
+    protected $pendingRelatedObjects = array();
 
     /**
      * Set username for identification
@@ -198,6 +198,7 @@ class LoggableListener extends MappedEventSubscriber
         foreach ($ea->getScheduledObjectDeletions($uow) as $object) {
             $this->createLogEntry(self::ACTION_REMOVE, $object, $ea);
         }
+        
     }
 
     /**
