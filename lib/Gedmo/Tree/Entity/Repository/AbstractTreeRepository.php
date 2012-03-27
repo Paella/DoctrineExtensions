@@ -35,11 +35,11 @@ abstract class AbstractTreeRepository extends EntityRepository
         }
 
         if (is_null($treeListener)) {
-            throw new \Gedmo\Exception\InvalidMappingException('This repository can be attached only to ORM tree listener');
+            throw new \Gedmo\Exception\InvalidMappingException('Tree listener was not found on your entity manager, it must be hooked into the event manager');
         }
 
         $this->listener = $treeListener;
-        if (!$this->validates()) {
+        if (!$this->validate()) {
             throw new \Gedmo\Exception\InvalidMappingException('This repository cannot be used for tree type: ' . $treeListener->getStrategy($em, $class->name)->getName());
         }
     }
@@ -50,5 +50,5 @@ abstract class AbstractTreeRepository extends EntityRepository
      *
      * @return bool
      */
-    abstract protected function validates();
+    abstract protected function validate();
 }

@@ -34,16 +34,16 @@ $deps22x = array(
     array('Symfony/Component/Yaml', 'http://github.com/symfony/Yaml.git', 'v2.0.7'),
 );
 $deps23x = array(
-    array('doctrine-orm', 'http://github.com/doctrine/doctrine2.git', '35fc3c0671'),
-    array('doctrine-dbal', 'http://github.com/doctrine/dbal.git', 'ef6c86fef3'),
-    array('doctrine-common', 'http://github.com/doctrine/common.git', '38c854c37d'),
-    array('doctrine-mongodb', 'http://github.com/doctrine/mongodb.git', '01babdde34'),
-    array('doctrine-mongodb-odm', 'http://github.com/doctrine/mongodb-odm.git', 'fb2447c01c'),
+    array('doctrine-orm', 'git://github.com/doctrine/doctrine2.git', '1b2b831feb'),
+    array('doctrine-dbal', 'git://github.com/doctrine/dbal.git', 'd9c3509e8d'),
+    array('doctrine-common', 'git://github.com/doctrine/common.git', 'd62352cc72'),
+    array('doctrine-mongodb', 'git://github.com/doctrine/mongodb.git', 'd7fdcff25b'),
+    array('doctrine-mongodb-odm', 'git://github.com/doctrine/mongodb-odm.git', 'fcff6211db'),
 
-    array('Symfony/Component/ClassLoader', 'http://github.com/symfony/ClassLoader.git', 'v2.0.9'),
-    array('Symfony/Component/Console', 'http://github.com/symfony/Console.git', 'v2.0.9'),
-    array('Symfony/Component/Finder', 'http://github.com/symfony/Finder.git', 'v2.0.9'),
-    array('Symfony/Component/Yaml', 'http://github.com/symfony/Yaml.git', 'v2.0.9'),
+    array('Symfony/Component/ClassLoader', 'git://github.com/symfony/ClassLoader.git', 'v2.0.12'),
+    array('Symfony/Component/Console', 'git://github.com/symfony/Console.git', 'v2.0.12'),
+    array('Symfony/Component/Finder', 'git://github.com/symfony/Finder.git', 'v2.0.12'),
+    array('Symfony/Component/Yaml', 'git://github.com/symfony/Yaml.git', 'v2.0.12'),
 );
 
 foreach ($deps23x as $dep) {

@@ -5,6 +5,9 @@ namespace Gedmo\Translatable\Document\Repository;
 use Gedmo\Translatable\TranslatableListener;
 use Doctrine\ODM\MongoDB\DocumentRepository;
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\UnitOfWork;
+use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use Gedmo\Tool\Wrapper\MongoDocumentWrapper;
 use Gedmo\Translatable\Mapping\Event\Adapter\ODM as TranslatableAdapterODM;
 use Doctrine\ODM\MongoDB\Mapping\Types\Type;
@@ -30,6 +33,17 @@ class TranslationRepository extends DocumentRepository
     private $listener;
 
     /**
+     * {@inheritdoc}
+     */
+    public function __construct(DocumentManager $dm, UnitOfWork $uow, ClassMetadata $class)
+    {
+        if ($class->getReflectionClass()->isSubclassOf('Gedmo\Translatable\Document\MappedSuperclass\AbstractPersonalTranslation')) {
+            throw new \Gedmo\Exception\UnexpectedValueException('This repository is useless for personal translations');
+        }
+        parent::__construct($dm, $uow, $class);
+    }
+
+    /**
      * Makes additional translation of $document $field into $locale
      * using $value
      *
@@ -53,12 +67,12 @@ class TranslationRepository extends DocumentRepository
         } else {
             $ea = new TranslatableAdapterODM();
             $foreignKey = $meta->getReflectionProperty($meta->identifier)->getValue($document);
-            $objectClass = $meta->name;
-            $class = $listener->getTranslationClass($ea, $meta->name);
+            $objectClass = $config['useObjectClass'];
+            $class = $listener->getTranslationClass($ea, $config['useObjectClass']);
             $transMeta = $this->dm->getClassMetadata($class);
             $trans = $this->findOneBy(compact('locale', 'field', 'objectClass', 'foreignKey'));
             if (!$trans) {
-                $trans = new $class();
+                $trans = $transMeta->newInstance();
                 $transMeta->getReflectionProperty('foreignKey')->setValue($trans, $foreignKey);
                 $transMeta->getReflectionProperty('objectClass')->setValue($trans, $objectClass);
                 $transMeta->getReflectionProperty('field')->setValue($trans, $field);
